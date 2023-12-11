@@ -6,8 +6,8 @@ import influxdb_client, os, time
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-token = "Q5cQfF5rXA-bfWuOz43mp96B3w2GRpv_Kdr927eEnpSavDod5Vl_9EhX8VZdX0egKJkTSzo1T6eg0osXGFffdg=="
-org = "Python is Trash AG"
+token = "L1XwTzFrMM-v3LiWuCMknySKtoJPH_ay_OBfQ8isTl6Q7lUDJ81SxTBh6iFQJPYuiwDqj3LNtXtYBzteSVj1qg=="
+org = "Python is Trash"
 url = "http://localhost:8086"
 
 write_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
@@ -24,7 +24,7 @@ def ReceiveSinus(client, userdata, message):
         .tag("Sin_Val", "Value")
         .field("MeasurementPoint", value)
     )
-    write_api.write(bucket=bucket, org="Python is Trash AG", record=point)
+    write_api.write(bucket=bucket, org="Python is Trash", record=point)
 
 
 client = Client("SinusSubscriber")
@@ -44,7 +44,7 @@ while True:
     query = """from(bucket: "Sinus")
      |> range(start: -10m)
      |> filter(fn: (r) => r._measurement == "measurement1")"""
-    tables = query_api.query(query, org="Python is Trash AG")
+    tables = query_api.query(query, org="Python is Trash")
 
 
 

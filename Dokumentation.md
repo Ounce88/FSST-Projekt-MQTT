@@ -46,19 +46,19 @@ InfluxDB installieren: https://docs.influxdata.com/influxdb/v2/install/?t=Window
 Nachdem die Installation erfolgreich war bekommt man einen InfluxDB Ordner mit einer **influxd.exe**. Mit der Konsole wieder in den InfluxDB Ordner navigieren und dann folgendes ausführen:
 	
 	influxd setup
-Somit wird der  lokale InfluxDB Server auf Port 8086 laufen. Auf dem Server muss man sich Anmelden/Registrieren und man muss auch einen Token implementieren der vollen Zugriff auf die InfluxDB API ermöglichen. 
+Somit wird der  lokale InfluxDB Server auf **Port 8086** laufen. Auf dem Server muss man sich Anmelden/Registrieren und man muss auch einen Token implementieren der vollen Zugriff auf die InfluxDB API ermöglichen. 
 	
 	token = "L1XwTzFrMM-v3LiWuCMknySKtoJPH_ay_OBfQ8isTl6Q7lUDJ81SxTBh6iFQJPYuiwDqj3LNtXtYBzteSVj1qg=="  
 	org = "Organisation Name"  
 	url = "http://localhost:8086"
-Hier werden einige Variablen definiert um die Eingabe zu erleichern.
+Hier werden einige Variablen definiert um die Übersicht zu erleichtern.
 
 	write_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)  
 	write_api = write_client.write_api(write_options=SYNCHRONOUS)  
 	query_api = write_client.query_api()
 Hier werden die **Write** als auch **Query** API initialisiert um Datentransfer zwischen Python und InfluxDB zu ermöglichen.
 #### Senden
-Auf InfluxDB kann man einen neuen Bucket erstellen wo Werte gespeichert werden. 
+Auf InfluxDB kann man einen neuen **Bucket** erstellen wo Werte **gespeichert** werden. 
 
 	def ReceiveSinus(client, userdata, message):  
 	    value = float(message.payload.decode())  
@@ -69,6 +69,15 @@ Auf InfluxDB kann man einen neuen Bucket erstellen wo Werte gespeichert werden.
 	        .field("MeasurementPoint", value)  
 	    )  
 	    write_api.write(bucket=bucket, org="Python is Trash", record=point)
-In einem Point werden die Namen und Werte gespeichert von einem Empfangenen Wert. Mithilfe der **Write** API wird der kurzvorher erstellte Punkt an die InfluxDB Datenbank gesendet.
+In einem **Point** werden die Namen und Werte gespeichert von einem Empfangenen Wert. Mithilfe der **Write** API wird der kurzvorher erstellte Punkt an die InfluxDB Datenbank **gesendet**.
 
+## Grafana
+#### Aufsetzen
+Grafana installieren: https://grafana.com/grafana/download?platform=windows
+Wenn Grafana Installiert ist muss man wieder mit der Konsole navigieren:
+C:\Programme\GrafanaLabs\grafana\bin\
+Jetzt den lokalen Grafana Server Starten:
+	
+	grafana-server.exe
 
+Grafana Server werden auf **Port 3000** normalerweise geöffnet, aber es kann auch sein das dieser Port bereits belegt ist. Falls dies der Fall ist muss man im **conf** Ordner und in den **.ini** Dateien den Port ändern.

@@ -7,6 +7,10 @@ token = "Q5cQfF5rXA-bfWuOz43mp96B3w2GRpv_Kdr927eEnpSavDod5Vl_9EhX8VZdX0egKJkTSzo
 org = "Python is Trash AG"
 url = "http://localhost:8086"
 
+broker = "localhost"  # Oder die IP-Adresse deines Brokers, falls er nicht lokal läuft
+port = 1883
+topic = "sinus/topic"
+
 write_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 write_api = write_client.write_api(write_options=SYNCHRONOUS)
 query_api = write_client.query_api()
@@ -18,7 +22,7 @@ bucket = "PVInformation"
 
 client = Client("PVPublisher")
 
-client.connect("localhost", 1883, 60)
+client.connect(broker, port)
 
 
 client.loop_start()

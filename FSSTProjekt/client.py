@@ -10,6 +10,10 @@ token = "L1XwTzFrMM-v3LiWuCMknySKtoJPH_ay_OBfQ8isTl6Q7lUDJ81SxTBh6iFQJPYuiwDqj3L
 org = "Python is Trash"
 url = "http://localhost:8086"
 
+broker = "localhost"  # Oder die IP-Adresse deines Brokers, falls er nicht lokal läuft
+port = 1883
+topic = "sinus/topic"
+
 write_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 write_api = write_client.write_api(write_options=SYNCHRONOUS)
 query_api = write_client.query_api()
@@ -29,10 +33,10 @@ def ReceiveSinus(client, userdata, message):
 
 client = Client("SinusSubscriber")
 
-client.connect("localhost", 1883, 60)
+client.connect(broker, port)
 
 
-client.subscribe("sinus/topic")
+client.subscribe(topic)
 client.on_message = ReceiveSinus
 
 client.loop_start()

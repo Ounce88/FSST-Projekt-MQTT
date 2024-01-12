@@ -7,7 +7,7 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 token = "L1XwTzFrMM-v3LiWuCMknySKtoJPH_ay_OBfQ8isTl6Q7lUDJ81SxTBh6iFQJPYuiwDqj3LNtXtYBzteSVj1qg=="
-org = "Python is Trash"
+org = "Lindinger"
 url = "http://localhost:8086"
 
 broker = "localhost"  # Oder die IP-Adresse deines Brokers, falls er nicht lokal läuft
@@ -28,7 +28,7 @@ def ReceiveSinus(client, userdata, message):
         .tag("Sin_Val", "Value")
         .field("MeasurementPoint", value)
     )
-    write_api.write(bucket=bucket, org="Python is Trash", record=point)
+    write_api.write(bucket=bucket, org="Lindinger", record=point)
 
 
 client = Client("SinusSubscriber")
@@ -48,7 +48,7 @@ while True:
     query = """from(bucket: "Sinus")
      |> range(start: -10m)
      |> filter(fn: (r) => r._measurement == "measurement1")"""
-    tables = query_api.query(query, org="Python is Trash")
+    tables = query_api.query(query, org="Lindinger")
 
 
 
